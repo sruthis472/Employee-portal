@@ -1,0 +1,14 @@
+form{
+    background-image: linear-gradient(to left,#a77eda,#eaddf9  );
+}
+button{
+    background-color: rgb(12, 12, 69);
+    color: white;
+}
+h3{
+    color: aliceblue;
+}
+button:hover{
+    border-color:rgb(12, 12, 69) ;
+    color: rgb(12, 12, 69);
+}

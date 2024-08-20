@@ -1,0 +1,75 @@
+<app-header></app-header>
+
+<div class="d-flex">
+    <!-- sidebar -->
+    <div id="sidebar">
+        <div class="mt-5 text-center text-light">
+            <a routerLink="/dashboard" style="text-decoration: none;color: white;">
+                <h3>Dashboard</h3>
+            </a>
+            <a routerLink="/employee" style="text-decoration: none;color: white;">
+                <h3 class="mt-4">Employees</h3>
+            </a>
+        </div>
+    </div>
+    <!-- main -->
+    <div class="container-fluid">
+        <div class="row p-3">
+            <div class="d-flex">
+                <h3 class="text-primary">Employee List</h3>
+
+                <button class="btn1 btn btn-outline-primary ms-auto"> <a routerLink="/add-employee" style="text-decoration: none;"><i class="fa-solid fa-user-plus me-2"></i>Add</a></button>
+            
+            </div>
+            <h6 class="mt-2">{{time | date:'short'}}</h6>
+            <div class="d-flex mt-5 px-md-5">
+                <div class="d-flex">
+                    <input type="text" placeholder="Username" class="form-control" name="skey" [(ngModel)]="searchkey">
+                    <div class="dropdown ms-3">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Sort
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" (click)="sortById()">By id</a></li>
+                          <li><a class="dropdown-item" (click)="sortByName()">By name</a></li>
+                         
+                        </ul>
+                      </div>
+                </div>
+                <button (click)="generatePdf()" class="btn btn-success ms-auto">Export<i class="fa-solid fa-file-export ms-2"></i></button>
+            </div>
+        </div>
+        <div class="row p-3 mt-5">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+            <table class="shadow table table-bordered">
+                <thead>
+                    <tr >
+                        <th class="bg-secondary text-light p-3 text-center">User Id</th>
+                        <th class="bg-secondary text-light p-3 text-center">Username</th>
+                        <th class="bg-secondary text-light p-3 text-center">Email</th>
+                        <th class="bg-secondary text-light p-3 text-center">Status</th>
+                        <th class="bg-secondary text-light p-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of allEmployee | search:searchkey | paginate: { itemsPerPage: 5, currentPage: p }" [hidden]="employee.id==1" >
+                        <td>{{employee.id}}</td>
+                        <td>{{employee.empUsername}}</td>
+                        <td>{{employee.empEmail}}</td>
+                        <td class="text-center">
+                            <button [ngClass]="employee.empStatus=='1'?' btn btn-success' :' btn btn-warning' ">{{employee.empStatus=="1"?'Active':'Inactive'}}</button>
+                        </td>
+                        <td class="d-flex justify-content-evenly">
+                            <button class="btn btn-outline-primary"><a routerLink="/edit/{{employee.id}}" style="text-decoration: none;"><i class="fa-solid fa-pen"></i></a></button>
+                            <button (click)="removeEmployee(employee.id)" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+           </div>
+           <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>

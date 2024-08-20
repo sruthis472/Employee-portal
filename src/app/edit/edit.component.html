@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="d-flex">
+  <!-- sidebar -->
+  <div id="sidebar">
+    <div class="mt-5 text-center text-light">
+      <a routerLink="/dashboard" style="text-decoration: none;color: white;">
+        <h3>Dashboard</h3>
+      </a>
+      <a routerLink="/employee" style="text-decoration: none;color: white;">
+        <h3 class="mt-4">Employees</h3>
+      </a>
+    </div>
+  </div>
+  <!-- main -->
+  <div class="container-fluid">
+    <div class="row pt-3 ps-1 d-flex justify-content-center">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <h1 class="text-primary text-center mt-5  mb-5 fs-2">Edit Employee Details</h1>
+        <div class="shadow p-5 mb-5 bg-white rounded mx-auto">
+          
+          <form #editForm="ngForm"  (ngSubmit)="editEmployee()">
+           
+              <div class="p-2">
+                <input  #edituser="ngModel" type="text" placeholder="Username" name="ename" [(ngModel)]="employeeDetails.empUsername" class="form-control" pattern="^(?=.*[a-z ])(?=.*[A-Z ]).{3,}$" required>
+                <span *ngIf="edituser.invalid && edituser.touched "  class="text-danger">*invald input</span>
+              </div>
+              <div class="p-2">
+                <input #editemail="ngModel" type="text" placeholder="Email" name="eMail" [(ngModel)]="employeeDetails.empEmail" class="form-control"  required email>
+                <span *ngIf="editemail.invalid && editemail.touched "  class="text-danger">*invald input</span>
+              </div>
+              <div class="form-floating p-2">
+                <select  #editstatus="ngModel" class="form-select" id="floatingSelect" aria-label="Floating label select example" name="estatus" [(ngModel)]="employeeDetails.empStatus" required>
+                  <option value="" selected></option>
+                  <option value="1">Active</option>
+                  <option value="2">Inactive</option>
+                  </select>
+                <span *ngIf="editstatus.invalid && editstatus.touched "  class="text-danger">*invald input</span>
+              </div>
+              <div class="p-2 d-flex ">
+                <button type="button" class="btn btn-warning me-2" (click)="cancel(employeeDetails.id)">Cancel</button>
+                <button [disabled]="editForm.invalid" type="submit" class="btn btn-success">Update</button>
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+

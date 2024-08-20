@@ -1,0 +1,17 @@
+#sidebar{
+    width: 230px;
+    background-color: rgb(12, 12, 69);
+    height: 90vh;
+}
+#maindiv1{
+    width: 100%;
+    background-color: rgb(95, 194, 230);
+    height: 150px;
+    border-radius: 5px;
+    display: flex;
+    align-items:center;
+}
+.btn1:hover{
+    background-color: white;
+  
+}

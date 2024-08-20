@@ -1,0 +1,51 @@
+<app-header></app-header>
+<div class="d-flex">
+  <!-- sidebar -->
+  <div id="sidebar">
+    <div class="mt-5 text-center text-light">
+      <a routerLink="/dashboard" style="text-decoration: none;color: white;">
+        <h3>Dashboard</h3>
+      </a>
+      <a routerLink="/employee" style="text-decoration: none;color: white;">
+        <h3 class="mt-4">Employees</h3>
+      </a>
+    </div>
+  </div>
+  <!-- main -->
+  <div class="container-fluid">
+    <div class="row pt-3 ps-1 d-flex justify-content-center">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <h1 class="text-primary text-center mt-5  mb-5 fs-2">Add New Employee Details</h1>
+        <div class="shadow p-5 mb-5 bg-white rounded mx-auto">
+          
+          <form #addEmp="ngForm" (ngSubmit)="addEmployee()">
+              <div class="p-2">
+                <input #empuser="ngModel" type="text" placeholder="Username" class="form-control" name="empUsername" [(ngModel)]="employeeDetails.empUsername" pattern="^(?=.*[a-z ])(?=.*[A-Z ]).{3,}$" required>
+                <span *ngIf="empuser.invalid && empuser.touched " class="text-danger">*invald input</span>
+              </div>
+              <div class="p-2">
+                <input  #empemail="ngModel" type="text" placeholder="Email" class="form-control" name="empEmail" [(ngModel)]="employeeDetails.empEmail"  required email>
+                <span *ngIf="empemail.invalid && empemail.touched " class="text-danger">*invald input</span>
+              </div>
+              <div class="form-floating p-2">
+                <select  #empstatus="ngModel" class="form-select" id="floatingSelect" aria-label="Floating label select example"  name="empstatus" [(ngModel)]="employeeDetails.empStatus" required> 
+                    <option value="" selected></option>
+                    <option value="1">Active</option>
+                    <option value="2">Inactive</option>
+                  
+                </select>
+                <label for="floatingSelect">Status</label>
+                <span *ngIf="empstatus.invalid && empstatus.touched " class="text-danger">*invalid input</span>
+            </div>
+              <div class="p-2 d-flex ">
+                <button class="btn btn-warning me-2" (click)="Cancel()">Cancel</button>
+                <button class="btn btn-success" [disabled]="addEmp.invalid">Add</button>
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>

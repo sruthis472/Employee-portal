@@ -1,0 +1,84 @@
+<app-header></app-header>
+<div class="d-flex">
+    <!-- sidebar -->
+    <div id="sidebar">
+        <div class="mt-5 text-center text-light">
+            <a routerLink="/dashboard" style="text-decoration: none;color: white;">
+                <h3>Dashboard</h3>
+            </a>
+            <a routerLink="/employee" style="text-decoration: none;color: white;">
+                <h3 class="mt-4">Employees</h3>
+            </a>
+        </div>
+    </div>
+
+    <!-- main -->
+    <div class="container-fluid">
+        <div class="row pt-3 ps-1">
+            <div class="col-md-8">
+                <div id="maindiv1">
+                    <h4 class="ms-4 text-light"><i class="fa-solid fa-bars me-3"></i>Welcome {{adminDetails.empUsername}}</h4>
+                </div>
+                <div class="row mt-3 ">
+                    <div class="col-md-6 ">
+                        <!-- <p>Calender</p> -->
+                        <mat-card class="demo-inline-calendar-card">
+                            <mat-calendar [(selected)]="selected"></mat-calendar>
+                        </mat-card>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <!-- <p>pie chart</p> -->
+                        <highcharts-chart 
+                            [Highcharts]="Highcharts"
+                            [options]="chartOptions"
+                            style="width: 100%; height: 400px; display: block;">
+                        </highcharts-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div style="height: 450px; background-color: aqua;"
+                    class="rounded d-flex justify-content-center align-items-center flex-column  shadow ">
+
+
+                    <div *ngIf="!isClicked" class="rounded d-flex justify-content-center align-items-center flex-column">
+                        <img [src]="profImg" alt="no image"  width="180px" height="180px" style="background-color: antiquewhite;border-radius: 50%;">
+                <button (click)="buttonClick()" class="btn text-primary">Edit Admin Details<i class="fa-solid fa-pen-nib ms-3"></i></button>
+                    </div>
+
+
+                    <div *ngIf="isClicked" class="d-flex justify-content-center align-items-center flex-column  w-100 px-4">
+                        <h5 class="mt-5 mb-3">Update Admin details</h5>
+                       <label for="profileImage"> 
+                        <input id="profileImage" type="file" style="display: none;" (change)="getFile($event)">
+                        <img [src]="profImg" alt="no image" width="180px"
+                        height="180px" style="background-color: antiquewhite;border-radius: 50%;"></label>
+                        <form class="mt-4 w-100" (ngSubmit)="updateAdmin()">
+                            <div class="mb-3">
+                                <input type="text" placeholder="Admin Name" class="form-control w-100" name="adminname" [(ngModel)]="adminDetails.empUsername" >
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" placeholder="Password" class="form-control w-100" name="adminpswd" [(ngModel)]="adminDetails.password" >
+                            </div>
+                            <div class="mb-3 d-flex justify-content-between">
+                                <button type="button" (click)="cancel()" class="btn btn-warning">Cancel</button>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+                <div style="height: 200px;background-color: blueviolet;"
+                    class="rounded d-flex justify-content-center align-items-center shadow mt-4 text-light">
+                    <h3><i class="fa-solid fa-users me-3"></i>Employee Count : {{total}}</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
